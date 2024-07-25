@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 
 export default async function Index() {
   const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
+  const supabase = createClient();
 
   const { data: todos } = await supabase.from("todos").select();
 
