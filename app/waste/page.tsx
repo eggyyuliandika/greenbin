@@ -1,16 +1,13 @@
-import Header from "@/components/Header";
+import { WasteForm } from "@/components/waste/form";
+import Header from "@/components/waste/header";
+import WasteList from "@/components/waste/tables";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-
-
 
 export default async function Waste() {
   const supabase = createClient();
 
-
-   const { data: waste } = await supabase.from("waste").select();
-
-  
+  const { data: waste } = await supabase.from("waste").select();
 
   const {
     data: { user },
@@ -24,11 +21,10 @@ export default async function Waste() {
     <div>
       <div>
         <Header />
-        <h1>waste</h1>
-          <pre>{JSON.stringify(waste, null, 3)}</pre>
+        <WasteForm />
+        <WasteList waste={waste ?? []} />
       </div>
     </div>
-
-  
+   
   );
 }

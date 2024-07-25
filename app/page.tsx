@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import Header from "@/components/waste/header";
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 
@@ -6,7 +6,7 @@ export default async function Index() {
   const cookieStore = cookies();
   const supabase = createClient();
 
-  const { data: todos } = await supabase.from("todos").select();
+  const { data: waste } = await supabase.from("waste").select();
 
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
