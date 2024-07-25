@@ -4,6 +4,7 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "./submit-button";
 import { login, signup } from "./action";
+import { OAuthButton } from "./oauth-signin";
 
 export default async function Login({
   searchParams,
@@ -19,8 +20,6 @@ export default async function Login({
   if (user) {
     return redirect("/waste");
   }
-
-
 
   return (
     <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
@@ -86,6 +85,7 @@ export default async function Login({
             {searchParams.message}
           </p>
         )}
+        <OAuthButton />
       </form>
     </div>
   );

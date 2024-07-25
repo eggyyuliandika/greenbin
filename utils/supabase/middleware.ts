@@ -2,10 +2,6 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
-
-
-
-
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
@@ -33,9 +29,6 @@ export async function updateSession(request: NextRequest) {
       },
     }
   );
-
-  console.log("URL:", process.env.NEXT_PUBLIC_SUPABASE_URL!);
-  console.log("Anon Key:", process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
 
   // IMPORTANT: Avoid writing any logic between createServerClient and
   // supabase.auth.getUser(). A simple mistake could make it very hard to debug
