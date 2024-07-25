@@ -2,10 +2,15 @@ import Header from "@/components/Header";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
-import Link from "next/link";
+
 
 export default async function Waste() {
   const supabase = createClient();
+
+
+   const { data: waste } = await supabase.from("waste").select();
+
+  
 
   const {
     data: { user },
@@ -19,11 +24,11 @@ export default async function Waste() {
     <div>
       <div>
         <Header />
-
         <h1>waste</h1>
+          <pre>{JSON.stringify(waste, null, 3)}</pre>
       </div>
     </div>
 
-    // <pre>{JSON.stringify(waste, null, 3)}</pre>
+  
   );
 }
