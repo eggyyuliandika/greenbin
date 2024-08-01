@@ -1,7 +1,6 @@
 import AuthButton from "@/components/AuthButton";
 import { createClient } from "@/utils/supabase/server";
-
-import Header from "@/components/waste/header";
+import Header from "@/components/header";
 import { redirect } from "next/navigation";
 
 export default async function ProtectedPage() {

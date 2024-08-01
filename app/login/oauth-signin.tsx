@@ -30,7 +30,7 @@ export function OAuthButton() {
           }}
         >
           {provider.icon}
-          Login with {provider.displayName}
+          Sign in with {provider.displayName}
         </Button>
       ))}
     </>

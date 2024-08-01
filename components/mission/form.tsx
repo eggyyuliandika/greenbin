@@ -1,5 +1,5 @@
 "use client";
-import { addWaste } from "@/app/waste/actions";
+import { addMission } from "@/app/mission/actions";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,12 +12,34 @@ function FormContent() {
   const { pending } = useFormStatus();
   return (
     <>
-      <Textarea
+      <input
         disabled={pending}
         minLength={2}
-        name="waste"
+        name="mission"
         required
-        placeholder="Add a new waste"
+        placeholder="Add a new mission"
+      />
+      <input
+        disabled={pending}
+        minLength={2}
+        name="mission"
+        required
+        placeholder="Add a brand"
+      />
+      <input
+        disabled={pending}
+        minLength={2}
+        name="mission"
+        required
+        type="date"
+        placeholder="Add periode"
+      />
+      <input
+        disabled={pending}
+        minLength={2}
+        name="mission"
+        required
+        placeholder="Add amount"
       />
       <Button type="submit" size="icon" className="min-w-10" disabled={pending}>
         <Send className="h-5 w-5" />
@@ -27,7 +49,7 @@ function FormContent() {
   );
 }
 
-export function WasteForm() {
+export function MissionForm() {
   const formRef = useRef<HTMLFormElement>(null);
   return (
     <Card>
@@ -36,7 +58,7 @@ export function WasteForm() {
           ref={formRef}
           className="flex gap-4"
           action={async (data) => {
-            await addWaste(data);
+            await addMission(data);
             formRef.current?.reset();
           }}
         >

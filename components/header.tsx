@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
-import { Button } from "../ui/button";
+import { Button } from "./ui/button";
 import { signOut } from "@/app/login/action";
 
 export default async function Header() {
@@ -17,13 +17,21 @@ export default async function Header() {
           <a className="mr-6 flex items-center space-x-2" href="/">
             <span className="font-bold">Greenbin</span>
           </a>
-          <Link href="/waste">Waste</Link>
+          <div className="flex gap-2">
+            <Link href="/waste">Waste</Link>
+            <Link href="/waste_type">Waste Type</Link>
+            <Link href="/mission">Mission</Link>
+            <Link href="/mission_redeem">Mission Redeem</Link>
+            <Link href="/voucher">Voucher</Link>
+            <Link href="/voucher_redeem">Voucher Redeem</Link>
+            <Link href="/waste_exchange">Waste Exchange</Link>
+          </div>
         </nav>
         <div className="flex flex-1 items-center justify-end space-x-2">
           {user !== null ? (
             <form action={signOut} className="flex items-center gap-w">
-              <p>{user.email}</p>
-              <Button>Sign Out</Button>
+              {/* <p>{user.email}</p> */}
+              <Button variant="outline">Sign Out</Button>
             </form>
           ) : (
             <Button asChild>

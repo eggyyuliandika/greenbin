@@ -1,4 +1,4 @@
-import Header from "@/components/waste/header";
+import Header from "@/components/header";
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 

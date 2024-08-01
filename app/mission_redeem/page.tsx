@@ -1,13 +1,15 @@
-import { WasteForm } from "@/components/waste/form";
+import { MissionRedeemForm } from "@/components/mission_redeem/form";
 import Header from "@/components/header";
-import WasteList from "@/components/waste/tables";
+import MissionRedeemList from "@/components/mission_redeem/tables";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
-export default async function Waste() {
+export default async function MissionRedeem() {
   const supabase = createClient();
 
-  const { data: waste } = await supabase.from("waste").select();
+  const { data: mission_redeem } = await supabase
+    .from("mission_redeem")
+    .select();
 
   const {
     data: { user },
@@ -21,8 +23,8 @@ export default async function Waste() {
     <div>
       <div>
         <Header />
-        <WasteForm />
-        <WasteList waste={waste ?? []} />
+        <MissionRedeemForm />
+        <MissionRedeemList mission_redeem={mission_redeem ?? []} />
       </div>
     </div>
   );

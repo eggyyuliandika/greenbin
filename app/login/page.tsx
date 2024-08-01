@@ -45,8 +45,8 @@ export default async function Login({
       </Link>
 
       <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
-        <h1>Login</h1>
-        <p>Enter your email below to login your account</p>
+        <h1>Sign In</h1>
+        <p>Enter your email below to sign in your account</p>
         <label className="text-md" htmlFor="email">
           Email
         </label>
@@ -85,7 +85,7 @@ export default async function Login({
             {searchParams.message}
           </p>
         )}
-        <OAuthButton />
+        {/* <OAuthButton /> */}
       </form>
     </div>
   );

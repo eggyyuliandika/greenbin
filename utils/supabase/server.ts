@@ -3,9 +3,6 @@ import { cookies } from "next/headers";
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { Database } from "@/types/supabase";
 
-
-
-
 export function createClient() {
   const cookieStore = cookies();
 

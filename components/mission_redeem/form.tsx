@@ -1,8 +1,7 @@
 "use client";
-import { addWaste } from "@/app/waste/actions";
+import { addMissionRedeem } from "@/app/mission_redeem/actions";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
 import { Send } from "lucide-react";
 import { useRef } from "react";
 
@@ -12,13 +11,29 @@ function FormContent() {
   const { pending } = useFormStatus();
   return (
     <>
-      <Textarea
+      <input
         disabled={pending}
         minLength={2}
-        name="waste"
+        name="mission"
         required
-        placeholder="Add a new waste"
+        placeholder="Add a mission"
       />
+      <input
+        disabled={pending}
+        minLength={2}
+        name="mission"
+        required
+        type="date"
+        placeholder="Add a time"
+      />
+      <input
+        disabled={pending}
+        minLength={2}
+        name="mission"
+        required
+        placeholder="Add amount"
+      />
+
       <Button type="submit" size="icon" className="min-w-10" disabled={pending}>
         <Send className="h-5 w-5" />
         <span className="sr-only">Submit</span>
@@ -27,7 +42,7 @@ function FormContent() {
   );
 }
 
-export function WasteForm() {
+export function MissionRedeemForm() {
   const formRef = useRef<HTMLFormElement>(null);
   return (
     <Card>
@@ -36,7 +51,7 @@ export function WasteForm() {
           ref={formRef}
           className="flex gap-4"
           action={async (data) => {
-            await addWaste(data);
+            await addMissionRedeem(data);
             formRef.current?.reset();
           }}
         >
