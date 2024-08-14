@@ -1,6 +1,8 @@
+"use server";
 import Header from "@/components/header";
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
+import Sidebar from "@/components/sidebar";
 
 export default async function Index() {
   const cookieStore = cookies();
@@ -9,8 +11,9 @@ export default async function Index() {
   const { data: waste } = await supabase.from("waste").select();
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <div className="flex-1 flex flex-col gap-20 max-w-4xl px-3">
+    <div className="flex">
+      <Sidebar sidebarOpen={false} />
+      <div className="relative flex flex-1 flex-col lg:ml-72.5">
         <Header />
       </div>
     </div>

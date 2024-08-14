@@ -11,21 +11,12 @@ export default async function Header() {
   } = await supabase.auth.getUser();
 
   return (
-    <header className="z-10 sticky top-0 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 max-w-screen-2xl items-center">
+    <header className="sticky top-0 z-999 flex w-[1900px] bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
+      <div className="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
         <nav className="flex items-center space-x-4 lg:space-x-6">
           <a className="mr-6 flex items-center space-x-2" href="/">
             <span className="font-bold">Greenbin</span>
           </a>
-          <div className="flex gap-2">
-            <Link href="/waste">Waste</Link>
-            <Link href="/waste_type">Waste Type</Link>
-            <Link href="/mission">Mission</Link>
-            <Link href="/mission_redeem">Mission Redeem</Link>
-            <Link href="/voucher">Voucher</Link>
-            <Link href="/voucher_redeem">Voucher Redeem</Link>
-            <Link href="/waste_exchange">Waste Exchange</Link>
-          </div>
         </nav>
         <div className="flex flex-1 items-center justify-end space-x-2">
           {user !== null ? (

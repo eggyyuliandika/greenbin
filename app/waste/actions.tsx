@@ -1,5 +1,6 @@
 "use server";
 
+import { Waste } from "@/types/custom";
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 
@@ -11,6 +12,11 @@ export async function addWaste(formData: FormData) {
     throw new Error("Text is required");
   }
 
+  const typeOfWaste = formData.get("type_of_waste") as string | null;
+  if (!typeOfWaste) {
+    throw new Error("Type of waste is required");
+  }
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -20,6 +26,7 @@ export async function addWaste(formData: FormData) {
 
   const { error } = await supabase.from("waste").insert({
     name: text,
+    type_of_waste: typeOfWaste,
   });
 
   if (error) {
@@ -30,6 +37,21 @@ export async function addWaste(formData: FormData) {
   revalidatePath("/waste");
 }
 
+// const fetchWasteType = async () => {
+//   const supabase = createClient();
+//   try {
+//     const { data, error } = await supabase
+//       .from("waste")
+//       .select("*, type_of_waste (*)");
+//     return data;
+//   } catch (error) {
+//     console.error("Error fetching waste type:", error);
+//     return null;
+//   }
+// };
+
+// fetchWasteType().then((data) => console.log(data));
+
 export async function deleteWaste(id: number) {
   const supabase = createClient();
   const {
@@ -39,12 +61,14 @@ export async function deleteWaste(id: number) {
     throw new Error("User is not logged in");
   }
 
-  const { error } = await supabase.from("waste").delete();
+  const { error } = await supabase.from("waste").delete().match({
+    id_waste: id,
+  });
 
   if (error) {
+    console.log(error);
     throw new Error("Error delete waste");
   }
-
   revalidatePath("/waste");
 }
 
@@ -57,15 +81,19 @@ export async function updateWaste(waste: Waste) {
     throw new Error("User is not logged in");
   }
 
-  const { error } = await supabase.from("waste").update(waste).match({
-    id: waste.id,
-  });
+  // Ensure using correct method for update
+  const { error } = await supabase
+    .from("waste")
+    .update({
+      name: waste.name,
+      type_of_waste: waste.type_of_waste,
+    })
+    .match({ id_waste: waste.id_waste });
 
   if (error) {
-   
-    throw new Error("Error delete waste");
+    console.log(error);
+    throw new Error("Error updating waste");
   }
-
 
   revalidatePath("/waste");
 }
