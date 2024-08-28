@@ -1,16 +1,12 @@
 import { WasteForm } from "@/components/waste/form";
-import Header from "@/components/header";
 import WasteList from "@/components/waste/tables";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-
+import Dashboard from "../page";
 
 export default async function Waste() {
   const supabase = createClient();
-  // const [isModalVisible, setModalVisible] = useState(false);
-
   const { data: waste } = await supabase.from("waste").select();
-
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -20,19 +16,22 @@ export default async function Waste() {
   }
 
   return (
-    <div>
+    <Dashboard>
       <div>
-        <Header />
-        <WasteForm
-          waste={{
-            created_at: "",
-            id_type_of_waste: null,
-            id_waste: 0,
-            name: null,
-          }}
-        />
-        <WasteList waste={waste ?? []} />
+        <div>
+          <div>
+            <WasteForm
+              waste={{
+                created_at: "",
+                id_type_of_waste: null,
+                id_waste: 0,
+                name: null,
+              }}
+            />
+            <WasteList waste={waste ?? []} />
+          </div>
+        </div>
       </div>
-    </div>
+    </Dashboard>
   );
 }

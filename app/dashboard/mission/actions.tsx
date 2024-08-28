@@ -2,10 +2,11 @@
 
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
+import { boolean, number } from "zod";
 
-export async function addTypeOfWaste(formData: FormData) {
+export async function addMission(formData: FormData) {
   const supabase = createClient();
-  const text = formData.get("waste_type") as string | null;
+  const text = formData.get("mission") as string | null;
 
   if (!text) {
     throw new Error("Text is required");
@@ -18,35 +19,37 @@ export async function addTypeOfWaste(formData: FormData) {
     throw new Error("User is not logged in");
   }
 
-  const { error } = await supabase.from("type_of_waste").insert({
+  const { error } = await supabase.from("mission").insert({
     name: text,
+    brand: text,
+    periode: Date,
+    amount: number,
+    status: boolean,
   });
 
   if (error) {
     console.log(error);
-    throw new Error("Error adding type of waste");
+    throw new Error("Error adding mission");
   }
 
-  revalidatePath("/type_of_waste");
+  revalidatePath("/mission");
 }
 
-// export async function deleteWaste(id: number) {
-//   const supabase = createClient();
-//   const {
-//     data: { user },
-//   } = await supabase.auth.getUser();
-//   if (!user) {
-//     throw new Error("User is not logged in");
-//   }
+export async function deleteMission(id: number) {
+  const supabase = createClient();
+  const { error } = await supabase
+    .from("mission")
+    .delete()
+    .eq("id_mission", id);
 
-//   const { error } = await supabase.from("waste").delete();
+  if (error) {
+    console.error("Error deleting mission:", error);
+    return false;
+  }
 
-//   if (error) {
-//     throw new Error("Error delete waste");
-//   }
-
-//   revalidatePath("/waste");
-// }
+  revalidatePath("/mission");
+  return true;
+}
 
 // export async function updateWaste(waste: Waste) {
 //   const supabase = createClient();
@@ -67,4 +70,3 @@ export async function addTypeOfWaste(formData: FormData) {
 //   }
 
 //   revalidatePath("/waste");
-// }

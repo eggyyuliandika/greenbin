@@ -1,9 +1,9 @@
 "use client";
-import { addWaste } from "@/app/waste/actions";
+import { addWaste } from "@/app/dashboard/waste/actions";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Waste } from "@/types/custom";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { useFormStatus } from "react-dom";
 
 export function FormContent({ waste }: { waste: Waste }) {
@@ -132,19 +132,24 @@ export function FormContent({ waste }: { waste: Waste }) {
 export function WasteForm({ waste }: { waste: Waste }) {
   const formRef = useRef<HTMLFormElement>(null);
   return (
-    <Card>
-      <CardContent className="p-3">
-        <form
-          ref={formRef}
-          className="flex gap-4"
-          action={async (data) => {
-            await addWaste(data);
-            formRef.current?.reset();
+    <CardContent>
+      <form
+        ref={formRef}
+        className="flex gap-4"
+        action={async (data) => {
+          await addWaste(data);
+          formRef.current?.reset();
+        }}
+      >
+        <FormContent
+          waste={{
+            created_at: "",
+            id_type_of_waste: null,
+            id_waste: 0,
+            name: null,
           }}
-        >
-          <FormContent />
-        </form>
-      </CardContent>
-    </Card>
+        />
+      </form>
+    </CardContent>
   );
 }

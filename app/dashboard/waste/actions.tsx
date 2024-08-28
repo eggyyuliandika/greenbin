@@ -33,43 +33,20 @@ export async function addWaste(formData: FormData) {
     console.log(error);
     throw new Error("Error adding waste");
   }
-
   revalidatePath("/waste");
 }
 
-// const fetchWasteType = async () => {
-//   const supabase = createClient();
-//   try {
-//     const { data, error } = await supabase
-//       .from("waste")
-//       .select("*, type_of_waste (*)");
-//     return data;
-//   } catch (error) {
-//     console.error("Error fetching waste type:", error);
-//     return null;
-//   }
-// };
-
-// fetchWasteType().then((data) => console.log(data));
-
 export async function deleteWaste(id: number) {
   const supabase = createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) {
-    throw new Error("User is not logged in");
-  }
-
-  const { error } = await supabase.from("waste").delete().match({
-    id_waste: id,
-  });
+  const { error } = await supabase.from("waste").delete().eq("id_waste", id);
 
   if (error) {
-    console.log(error);
-    throw new Error("Error delete waste");
+    console.error("Error deleting waste:", error);
+    return false;
   }
+
   revalidatePath("/waste");
+  return true;
 }
 
 export async function updateWaste(waste: Waste) {
@@ -81,12 +58,11 @@ export async function updateWaste(waste: Waste) {
     throw new Error("User is not logged in");
   }
 
-  // Ensure using correct method for update
   const { error } = await supabase
     .from("waste")
     .update({
       name: waste.name,
-      type_of_waste: waste.type_of_waste,
+      type_of_waste: waste.id_type_of_waste,
     })
     .match({ id_waste: waste.id_waste });
 
@@ -95,5 +71,5 @@ export async function updateWaste(waste: Waste) {
     throw new Error("Error updating waste");
   }
 
-  revalidatePath("/waste");
+  revalidatePath("/dashboard/waste");
 }

@@ -20,7 +20,7 @@ export function FormContent({ mission }: { mission: Mission }) {
           className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           type="button"
         >
-          Add new Mission
+          Add new Voucher
         </button>
 
         {isOpen && (
@@ -34,7 +34,7 @@ export function FormContent({ mission }: { mission: Mission }) {
               <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                 <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                    Create New Mission
+                    Create New Voucher
                   </h3>
                   <button
                     type="button"

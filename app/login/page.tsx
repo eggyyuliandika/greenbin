@@ -4,7 +4,6 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { SubmitButton } from "./submit-button";
 import { login, signup } from "./action";
-import { OAuthButton } from "./oauth-signin";
 
 export default async function Login({
   searchParams,
@@ -18,7 +17,7 @@ export default async function Login({
   } = await supabase.auth.getUser();
 
   if (user) {
-    return redirect("/waste");
+    return redirect("/dashboard");
   }
 
   return (
@@ -44,7 +43,7 @@ export default async function Login({
         Back
       </Link>
 
-      <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
+      <form className="flex-1 flex flex-col w-full justify-center gap-1 text-foreground">
         <h1>Sign In</h1>
         <p>Enter your email below to sign in your account</p>
         <label className="text-md" htmlFor="email">
@@ -68,14 +67,14 @@ export default async function Login({
         />
         <SubmitButton
           formAction={login}
-          className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2"
+          className="bg-indigo-600 text-white font-semibold shadow-sm rounded-md px-4 py-2 text-foreground mb-2"
           pendingText="Signing In..."
         >
           Sign In
         </SubmitButton>
         <SubmitButton
           formAction={signup}
-          className="border border-foreground/20 rounded-md px-4 py-2 text-foreground mb-2"
+          className="border border-foreground/20 font-semibold shadow-sm rounded-md px-4 py-2 text-foreground mb-2"
           pendingText="Signing Up..."
         >
           Sign Up

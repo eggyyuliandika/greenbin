@@ -23,8 +23,10 @@ export default async function MissionRedeem() {
     <div>
       <div>
         <Header />
-        <MissionRedeemForm />
-        <MissionRedeemList mission_redeem={mission_redeem ?? []} />
+        <div className="p-10">
+          <MissionRedeemForm />
+          <MissionRedeemList mission_redeem={mission_redeem ?? []} />
+        </div>
       </div>
     </div>
   );

@@ -1,15 +1,14 @@
 "use client";
-import { updateWaste } from "@/app/dashboard/waste/actions"
+import { updateTypeWaste } from "@/app/dashboard/waste_type/actions";
 import { Button } from "@/components/ui/button";
-import { Waste } from "@/types/custom";
+import { TypeOfWaste } from "@/types/custom";
 import { revalidatePath } from "next/cache";
 import React, { useState } from "react";
 
-export function EditWasteModal({ waste }: { waste: Waste }) {
+export function EditTypeWasteModal({ type_of_waste }: { type_of_waste: TypeOfWaste }) {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
-    name: waste.name,
-    type_of_waste: waste.id_type_of_waste,
+    name: type_of_waste.name,
   });
 
   const toggleModal = () => {
@@ -26,11 +25,11 @@ export function EditWasteModal({ waste }: { waste: Waste }) {
   };
   const handleSubmit = async () => {
     try {
-      await updateWaste({
-        ...waste,
+      await updateTypeWaste({
+        ...type_of_waste,
         ...formData,
       });
-      revalidatePath("/waste"); // Revalidate path to refresh data
+      revalidatePath("/dashboard/waste_type"); // Revalidate path to refresh data
       toggleModal(); // Close the modal after successful update
     } catch (error) {
       console.error("Error updating waste:", error);
@@ -59,7 +58,7 @@ export function EditWasteModal({ waste }: { waste: Waste }) {
             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
               <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Edit Waste
+                  Edit Waste Type
                 </h3>
                 <button
                   type="button"
@@ -103,35 +102,13 @@ export function EditWasteModal({ waste }: { waste: Waste }) {
                       required
                     />
                   </div>
-                  <div className="col-span-2 sm:col-span-1">
-                    <label
-                      htmlFor="type_of_waste"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >
-                      Type of Waste
-                    </label>
-                    <select
-                      name="type_of_waste"
-                      value={formData.type_of_waste}
-                      onChange={handleChange}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    >
-                      <option value="PET">PET</option>
-                      <option value="HDPE">HDPE</option>
-                      <option value="PVC">PVC</option>
-                      <option value="LDPE">LDPE</option>
-                      <option value="PP">PP</option>
-                      <option value="HDPE">HDPE</option>
-                      <option value="PS">PS</option>
-                    </select>
-                  </div>
                 </div>
                 <Button
                   onClick={handleSubmit}
                   type="button"
                   className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
-                  Update Waste
+                  Update Waste Type
                 </Button>
               </div>
             </div>
