@@ -3,6 +3,7 @@
 // import { createClient } from "@/utils/supabase/server";
 // import { cookies } from "next/headers";
 // import Sidebar from "@/components/sidebar";
+import React from "react";
 
 export default async function Index() {
   // const cookieStore = cookies();
