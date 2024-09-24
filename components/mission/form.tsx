@@ -125,27 +125,6 @@ export function FormContent({ mission }: { mission: Mission }) {
                         required
                       />
                     </div>
-                    {/* <div className="col-span-2 sm:col-span-1">
-                      <label
-                        htmlFor="category"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        Type of Waste
-                      </label>
-                      <select
-                        name="type_of_waste"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      >
-                        <option selected="">Select type of waste</option>
-                        <option value="1">PET</option>
-                        <option value="2">HDPE</option>
-                        <option value="3">PVC</option>
-                        <option value="4">LDPE</option>
-                        <option value="5">PP</option>
-                        <option value="6">HDPE</option>
-                        <option value="7">PS</option>
-                      </select>
-                    </div> */}
                   </div>
                   <Button
                     disabled={pending}

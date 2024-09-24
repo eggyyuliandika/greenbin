@@ -1,17 +1,18 @@
 "use client";
-import { addMission } from "@/app/dashboard/mission/actions";
+import { addVoucher } from "@/app/dashboard/voucher/actions";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Mission } from "@/types/custom";
+import { Voucher } from "@/types/custom";
 import React, { useState, useRef } from "react";
 import { useFormStatus } from "react-dom";
 
-export function FormContent({ mission }: { mission: Mission }) {
+export function FormContent({ voucher }: { voucher: Voucher }) {
   const { pending } = useFormStatus();
   const [isOpen, setIsOpen] = useState(false);
   const toggleModal = () => {
     setIsOpen(!isOpen);
   };
+
   return (
     <>
       <div>
@@ -63,6 +64,22 @@ export function FormContent({ mission }: { mission: Mission }) {
                   <div className="grid gap-4 mb-4 grid-cols-2">
                     <div className="col-span-2">
                       <label
+                        htmlFor="sim_card"
+                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      >
+                        SIM Card
+                      </label>
+                      <input
+                        disabled={pending}
+                        type="text"
+                        name="sim_card"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="Enter SIM Card"
+                        required
+                      />
+                    </div>
+                    <div className="col-span-2">
+                      <label
                         htmlFor="name"
                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                       >
@@ -71,31 +88,47 @@ export function FormContent({ mission }: { mission: Mission }) {
                       <input
                         disabled={pending}
                         type="text"
-                        name="mission"
+                        name="name"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Add a new mission"
+                        placeholder="Enter voucher name"
                         required
                       />
                     </div>
                     <div className="col-span-2">
                       <label
-                        htmlFor="name"
+                        htmlFor="type"
                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                       >
-                        Brand
+                        Type
                       </label>
                       <input
                         disabled={pending}
                         type="text"
-                        name="mission"
+                        name="type"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Add a brand of mission"
+                        placeholder="Enter voucher type"
                         required
                       />
                     </div>
                     <div className="col-span-2">
                       <label
-                        htmlFor="name"
+                        htmlFor="stock"
+                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      >
+                        Stock
+                      </label>
+                      <input
+                        disabled={pending}
+                        type="number"
+                        name="stock"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="Enter stock"
+                        required
+                      />
+                    </div>
+                    <div className="col-span-2">
+                      <label
+                        htmlFor="periode"
                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                       >
                         Periode
@@ -103,49 +136,28 @@ export function FormContent({ mission }: { mission: Mission }) {
                       <input
                         disabled={pending}
                         type="date"
-                        name="mission"
+                        name="periode"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Add a new mission"
                         required
                       />
                     </div>
                     <div className="col-span-2">
                       <label
-                        htmlFor="name"
+                        htmlFor="status"
                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                       >
-                        Amount
-                      </label>
-                      <input
-                        disabled={pending}
-                        type="number"
-                        name="mission"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Add a period of mission"
-                        required
-                      />
-                    </div>
-                    {/* <div className="col-span-2 sm:col-span-1">
-                      <label
-                        htmlFor="category"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                      >
-                        Type of Waste
+                        Status
                       </label>
                       <select
-                        name="type_of_waste"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        name="status"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        disabled={pending}
+                        required
                       >
-                        <option selected="">Select type of waste</option>
-                        <option value="1">PET</option>
-                        <option value="2">HDPE</option>
-                        <option value="3">PVC</option>
-                        <option value="4">LDPE</option>
-                        <option value="5">PP</option>
-                        <option value="6">HDPE</option>
-                        <option value="7">PS</option>
+                        <option value="true">Active</option>
+                        <option value="false">Inactive</option>
                       </select>
-                    </div> */}
+                    </div>
                   </div>
                   <Button
                     disabled={pending}
@@ -164,7 +176,7 @@ export function FormContent({ mission }: { mission: Mission }) {
                         clipRule="evenodd"
                       ></path>
                     </svg>
-                    Add new Mission
+                    Add new Voucher
                   </Button>
                 </div>
               </div>
@@ -176,7 +188,7 @@ export function FormContent({ mission }: { mission: Mission }) {
   );
 }
 
-export function MissionForm() {
+export function VoucherForm() {
   const formRef = useRef<HTMLFormElement>(null);
   return (
     <Card>
@@ -185,18 +197,16 @@ export function MissionForm() {
           ref={formRef}
           className="flex gap-4"
           action={async (data) => {
-            await addMission(data);
+            await addVoucher(data);
             formRef.current?.reset();
           }}
         >
           <FormContent
-            mission={{
-              amount: null,
-              brand: null,
-              created_at: "",
-              id_mission: 0,
-              id_waste: null,
+            voucher={{
+              sim_card: null,
               name: null,
+              type: null,
+              stock: null,
               periode: null,
               status: null,
             }}

@@ -1,5 +1,6 @@
 import { deleteMission } from "@/app/dashboard/mission/actions";
 import { Mission } from "@/types/custom";
+import { EditMissionModal } from "./edit";
 
 export default function MissionList({ mission }: { mission: Array<Mission> }) {
   return (
@@ -35,11 +36,6 @@ export default function MissionList({ mission }: { mission: Array<Mission> }) {
                 AMOUNT
               </h5>
             </div>
-            {/* <div className="p-2.5 text-center xl:p-4">
-              <h5 className="text-sm font-medium uppercase xsm:text-base">
-                WASTE
-              </h5>
-            </div> */}
             <div className="p-2.5 text-center xl:p-4">
               <h5 className="text-sm font-medium uppercase xsm:text-base">
                 STATUS
@@ -54,6 +50,10 @@ export default function MissionList({ mission }: { mission: Array<Mission> }) {
 
           {mission?.map((m, key) => {
             const deleteMissionById = deleteMission.bind(null, m.id_mission);
+
+            // Konversi status boolean menjadi string
+            const statusText = m.status ? "Active" : "Inactive";
+
             return (
               <div
                 className={`grid grid-cols-6 sm:grid-cols-6 ${
@@ -76,7 +76,7 @@ export default function MissionList({ mission }: { mission: Array<Mission> }) {
                   <p className="font-medium ">{m.amount}</p>
                 </div>
                 <div className="flex items-center justify-center p-2.5 xl:p-5">
-                  <p className="font-medium">{m.status}</p>
+                  <p className="font-medium">{statusText}</p>
                 </div>
 
                 <div className="flex items-center justify-center p-2.5 xl:p-5">
@@ -86,7 +86,7 @@ export default function MissionList({ mission }: { mission: Array<Mission> }) {
                     </button>
                   </form>
 
-                  {/* <EditWasteModal waste={w} /> */}
+                 <EditMissionModal mission={m}/>
                 </div>
               </div>
             );

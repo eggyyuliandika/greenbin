@@ -1,17 +1,28 @@
 "use client";
-import { addWaste } from "@/app/dashboard/waste/actions";
+import { addWaste, getTypeOfWaste } from "@/app/dashboard/waste/actions";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { CardContent } from "@/components/ui/card";
 import { Waste } from "@/types/custom";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useFormStatus } from "react-dom";
 
 export function FormContent({ waste }: { waste: Waste }) {
   const { pending } = useFormStatus();
   const [isOpen, setIsOpen] = useState(false);
+  const [typesOfWaste, setTypesOfWaste] = useState<any[]>([]);
+  const [selectedType, setSelectedType] = useState<string>("");
   const toggleModal = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    const fetchTypesOfWaste = async () => {
+      const data = await getTypeOfWaste();
+      setTypesOfWaste(data); // Simpan data ke dalam state
+    };
+
+    fetchTypesOfWaste();
+  }, []);
 
   return (
     <>
@@ -88,15 +99,18 @@ export function FormContent({ waste }: { waste: Waste }) {
                       <select
                         name="type_of_waste"
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        value={selectedType}
+                        onChange={(e) => setSelectedType(e.target.value)}
+                        required
                       >
-                        <option selected="">Select type of waste</option>
-                        <option value="1">PET</option>
-                        <option value="2">HDPE</option>
-                        <option value="3">PVC</option>
-                        <option value="4">LDPE</option>
-                        <option value="5">PP</option>
-                        <option value="6">HDPE</option>
-                        <option value="7">PS</option>
+                        <option value="" disabled>
+                          Select type of waste
+                        </option>
+                        {typesOfWaste.map((type) => (
+                          <option key={type.id} value={type.id}>
+                            {type.name}
+                          </option>
+                        ))}
                       </select>
                     </div>
                   </div>

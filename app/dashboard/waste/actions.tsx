@@ -4,6 +4,30 @@ import { Waste } from "@/types/custom";
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 
+export async function getTypeOfWaste() {
+  const supabase = createClient();
+  const { data, error } = await supabase.from("type_of_waste").select("*");
+  if (error) {
+    console.error("Error fetching type of waste:", error);
+    return [];
+  }
+  return data;
+}
+
+export async function getWasteWithType() {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("waste")
+    .select("name, type_of_waste (name)") // Lakukan select pada kolom yang dibutuhkan, termasuk kolom dari tabel relasi
+    .order("created_at", { ascending: false }); // Contoh jika ingin mengurutkan berdasarkan waktu
+
+  if (error) {
+    console.error("Error fetching waste with type:", error);
+    return [];
+  }
+  return data;
+}
+
 export async function addWaste(formData: FormData) {
   const supabase = createClient();
   const text = formData.get("waste") as string | null;
